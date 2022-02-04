@@ -12,8 +12,12 @@ export async function signIn(req, res) {
         const name = await db.collection('users').findOne({ email: user.email })
 
         if (name && bcrypt.compareSync(user.password, name.password)) {
-            setTimeout(() => {
-                res.status(200).send(name)
+            setTimeout(async () => {
+                const token = uuid()
+
+                await db.collection('sessions').insertOne({ token, userId: name._id })
+                
+                res.status(200).send(token)
             }, 3000)
         } else {
             res.status(401).send('Usuário ou senha inválido')
@@ -24,7 +28,6 @@ export async function signIn(req, res) {
         console.log(error)
     }
 }
-
 
 export async function signUp(req, res) {
 
