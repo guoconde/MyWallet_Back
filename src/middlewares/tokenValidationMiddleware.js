@@ -5,7 +5,6 @@ export async function tokenValidationMiddleware(req, res, next) {
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '')
 
-    console.log(authorization)
     if (!token) {
         console.log('1')
         return res.sendStatus(401)
@@ -23,10 +22,7 @@ export async function tokenValidationMiddleware(req, res, next) {
         return res.sendStatus(401);
     }
     
-    console.log('4')
     res.locals.user = user;
-    console.log('5')
-    console.log(user)
 
     next();
 }
