@@ -1,5 +1,6 @@
 import db from "../../db.js";
 import dayjs from "dayjs";
+import { ObjectId } from "mongodb";
 
 export async function getUser(req, res) {
 
@@ -26,3 +27,11 @@ export async function postInputAndOutput(req, res) {
     await db.collection('wallet').insertOne({...entry, date: dayjs().format('DD/MM'), id: user._id})
     res.sendStatus(200)
 }
+
+export async function deleteItem(req, res) {
+    const { id } = req.params
+
+    await db.collection('wallet').deleteOne({ _id: new ObjectId(id) });
+  
+    res.sendStatus(200);
+  }
