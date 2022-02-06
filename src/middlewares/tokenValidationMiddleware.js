@@ -5,7 +5,6 @@ export async function tokenValidationMiddleware(req, res, next) {
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer ', '')
 
-    console.log(authorization)
     if (!token) {
         return res.sendStatus(401)
     }
