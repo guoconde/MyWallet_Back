@@ -47,14 +47,12 @@ export async function updateItem(req, res) {
 
     const entry = req.body
     const { id } = req.params
-    
-    console.log(entry)
 
-    await db.collection('users').updateOne({
-      _id: new ObjectId(id)
-    }, {
-      $set: entry
-    })
-  
-    res.sendStatus(200);
-  }
+    try {
+        await db.collection('wallet').updateOne({ _id: new ObjectId(id) }, { $set: { ...entry } })
+        res.sendStatus(200);
+
+    } catch (error) {
+        res.sendStatus(error)
+    }
+}

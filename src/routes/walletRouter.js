@@ -10,7 +10,7 @@ walletRouter.get('/carteira', getUser)
 walletRouter.post('/entrada', inputAndOutputSchemaValidationMiddleware, postInputAndOutput)
 walletRouter.post('/saida', inputAndOutputSchemaValidationMiddleware, postInputAndOutput)
 walletRouter.delete('/carteira/:id', deleteItem)
-walletRouter.put('/entrada/:id', updateItem)
-walletRouter.put('/saida/:id', updateItem)
+walletRouter.put('/entrada/:id', inputAndOutputSchemaValidationMiddleware, updateItem)
+walletRouter.put('/saida/:id', inputAndOutputSchemaValidationMiddleware, updateItem)
 
 export default walletRouter
