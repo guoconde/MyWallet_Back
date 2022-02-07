@@ -8,4 +8,4 @@ app.use(cors())
 
 app.use(router)
 
-app.listen(5000, () => console.log('O servidor esta rodando na porta 5000'))
+app.listen(process.env.PORT, () => console.log(`O servidor esta rodando na porta ${process.env.PORT}`))
