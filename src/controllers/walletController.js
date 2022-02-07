@@ -1,6 +1,7 @@
 import db from "../../db.js";
 import dayjs from "dayjs";
 import { ObjectId } from "mongodb";
+import { stripHtml } from "string-strip-html";
 
 export async function getUser(req, res) {
 
@@ -21,9 +22,14 @@ export async function postInputAndOutput(req, res) {
     const { user } = res.locals
     const entry = req.body
 
+    entry.type = stripHtml(entry.type).result.trim();
+    entry.description = stripHtml(entry.description).result.trim();
+
     try {
         await db.collection('wallet').insertOne({ ...entry, date: dayjs().format('DD/MM'), id: user._id })
-        res.sendStatus(200)
+        setTimeout(() => {
+            res.sendStatus(200)
+        }, 1500)
 
     } catch (error) {
         res.sendStatus(error)
@@ -48,9 +54,14 @@ export async function updateItem(req, res) {
     const entry = req.body
     const { id } = req.params
 
+    entry.type = stripHtml(entry.type).result.trim();
+    entry.description = stripHtml(entry.description).result.trim();
+
     try {
         await db.collection('wallet').updateOne({ _id: new ObjectId(id) }, { $set: { ...entry } })
-        res.sendStatus(200);
+        setTimeout(() => {
+            res.sendStatus(200);
+        }, 1500)
 
     } catch (error) {
         res.sendStatus(error)
