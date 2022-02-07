@@ -29,7 +29,7 @@
 
 ### Link Deploy:
 
-[Em construção](https://mywallet-nu-lime.vercel.app/)
+[Clique aqui para acessar a página do projeto](https://mywallet-nu-lime.vercel.app/)
 
 ### Tecnologias utilizadas:
 
