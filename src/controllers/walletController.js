@@ -22,6 +22,13 @@ export async function postInputAndOutput(req, res) {
     const { user } = res.locals
     const entry = req.body
 
+    const isValid = Number.isInteger(parseFloat(entry.values * 100))
+
+    if(!isValid) {
+        res.sendStatus(422)
+        return
+    }
+
     entry.type = stripHtml(entry.type).result.trim();
     entry.description = stripHtml(entry.description).result.trim();
 
@@ -54,6 +61,13 @@ export async function updateItem(req, res) {
     const entry = req.body
     const { id } = req.params
 
+    const isValid = Number.isInteger(parseFloat(entry.values * 100))
+
+    if(!isValid) {
+        res.sendStatus(422)
+        return
+    }
+    
     entry.type = stripHtml(entry.type).result.trim();
     entry.description = stripHtml(entry.description).result.trim();
 
