@@ -24,7 +24,7 @@ export async function postInputAndOutput(req, res) {
 
     const isValid = Number.isInteger(parseFloat(entry.values * 100))
 
-    if(!isValid) {
+    if (!isValid) {
         res.sendStatus(422)
         return
     }
@@ -34,9 +34,7 @@ export async function postInputAndOutput(req, res) {
 
     try {
         await db.collection('wallet').insertOne({ ...entry, date: dayjs().format('DD/MM'), id: user._id })
-        setTimeout(() => {
-            res.sendStatus(200)
-        }, 1500)
+        res.sendStatus(200)
 
     } catch (error) {
         res.sendStatus(error)
@@ -63,19 +61,17 @@ export async function updateItem(req, res) {
 
     const isValid = Number.isInteger(parseFloat(entry.values * 100))
 
-    if(!isValid) {
+    if (!isValid) {
         res.sendStatus(422)
         return
     }
-    
+
     entry.type = stripHtml(entry.type).result.trim();
     entry.description = stripHtml(entry.description).result.trim();
 
     try {
         await db.collection('wallet').updateOne({ _id: new ObjectId(id) }, { $set: { ...entry } })
-        setTimeout(() => {
-            res.sendStatus(200);
-        }, 1500)
+        res.sendStatus(200);
 
     } catch (error) {
         res.sendStatus(error)

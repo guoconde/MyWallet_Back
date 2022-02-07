@@ -15,13 +15,11 @@ export async function signIn(req, res) {
         const name = await db.collection('users').findOne({ email: user.email })
 
         if (name && bcrypt.compareSync(user.password, name.password)) {
-            setTimeout(async () => {
-                const token = uuid()
+            const token = uuid()
 
-                await db.collection('sessions').insertOne({ token, userId: name._id })
+            await db.collection('sessions').insertOne({ token, userId: name._id })
 
-                res.status(200).send(token)
-            }, 1500)
+            res.status(200).send(token)
         } else {
             res.status(401).send('Usuário ou senha inválido')
         }
@@ -52,9 +50,8 @@ export async function signUp(req, res) {
         }
 
         await db.collection('users').insertOne(user)
-        setTimeout(() => {
-            res.sendStatus(201)
-        }, 1500)
+        res.sendStatus(201)
+
     } catch (error) {
         res.sendStatus(500)
         console.log(error)
